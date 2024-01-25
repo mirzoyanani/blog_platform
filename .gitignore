@@ -1,0 +1,22 @@
+# .gitignore
+.env
+node_modules/
+package-lock.json
+package.json
+build/
+
+.vscode/
+.idea/
+
+logs/
+*.log
+
+.DS_Store
+
+.npmrc
+.prettierrc
+.eslintrc
+nodemon.json
+
+.eslintcache
+.eslintignore
