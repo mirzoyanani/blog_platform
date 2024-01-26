@@ -11,6 +11,11 @@ export interface UserInfoDTO {
   email: string;
   password: string;
 }
+export interface BlogCreationDTO {
+  id: string;
+  title: string;
+  body: string;
+}
 
 export interface UserDocument extends Document {
   name?: string;

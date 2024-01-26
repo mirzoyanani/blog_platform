@@ -20,6 +20,11 @@ export const _USER_NOT_FOUND_: ErrorMessage = {
   message: "Այսպիսի օգտատեր գոյություն չունի",
   status: 404,
 };
+export const _TOKEN_IS_MISSING_: ErrorMessage = {
+  code: 4041,
+  message: "Token is missing",
+  status: 404,
+};
 export const _EMAIL_EXISTS_: ErrorMessage = {
   code: 4041,
   message: "Էլեկտրոնային փոստը արդեն օգտագործվել է",

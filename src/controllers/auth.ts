@@ -65,7 +65,7 @@ export const loginController = async (req: Request<unknown, unknown, LoginDto>, 
     if (!isPasswordCorrect) {
       throw _WRONG_LOGIN_OR_PASSWORD;
     }
-    const token = jwt.sign({ uid: currentUser.id }, process.env.SECRET_KEY as string, {
+    const token = jwt.sign({ id: currentUser.id }, process.env.SECRET_KEY as string, {
       expiresIn: 60 * 60 * 24 * 365,
     });
     result.data.token = token;

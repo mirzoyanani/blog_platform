@@ -24,6 +24,10 @@ const validationSchemas: ValidationSchemas = {
   check_code: joi.object({
     code: joi.string().required(),
   }),
+  blog: joi.object({
+    title: joi.string().required(),
+    body: joi.string().required(),
+  }),
 };
 
 export default validationSchemas;
