@@ -2,6 +2,7 @@ import mongoose, { Schema, Document } from "mongoose";
 
 interface BlogDocument extends Document {
   id: string;
+  uid: string;
   title: string;
   body: string;
   author: string;
@@ -13,6 +14,9 @@ const blogSchema: Schema<BlogDocument> = new Schema({
   id: {
     type: String,
   },
+  uid: {
+    type: String,
+  },
   title: {
     type: String,
     maxlength: 32,
@@ -22,7 +26,8 @@ const blogSchema: Schema<BlogDocument> = new Schema({
     maxlength: 500,
   },
   author: {
-    type: String,
+    name: String,
+    surname: String,
   },
   creation_date: {
     type: Date,

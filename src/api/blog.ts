@@ -6,8 +6,6 @@ const router: Router = Router();
 
 router.post("", authorize, validator("blog"), createBlogController);
 router.get("", getBlogsController);
-// router.post("/forgetPassword", validator("forget_password"), forgetPasswordController);
-// router.post("/submitCode", authorize, validator("check_code"), checkCodeController);
-// router.put("/resetPassword", authorize, validator("reset_password"), resetPasswordController);
+router;
 
 export default router;

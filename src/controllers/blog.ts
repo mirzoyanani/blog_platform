@@ -13,9 +13,13 @@ export const createBlogController = async (req: CustomRequest<BlogCreationDTO, u
       const user = await User.findOne({ id: req.decoded?.id });
       await Blog.create({
         id: payload.id,
+        uid: req.decoded?.id,
         title: payload.title,
         body: payload.body,
-        author: user?.name + " " + user?.surname,
+        author: {
+          name: user?.name,
+          surname: user?.surname,
+        },
       });
 
       result.data.message = "Blog added successfully";
