@@ -31,6 +31,13 @@ const validationSchemas: ValidationSchemas = {
   update: joi.object({
     id: joi.string().required(),
   }),
+  comment: joi.object({
+    blogId: joi.string().required(),
+    body: joi.string().required(),
+  }),
+  get_comment: joi.object({
+    id: joi.string().required(),
+  }),
 };
 
 export default validationSchemas;

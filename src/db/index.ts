@@ -1,11 +1,10 @@
 import mongoose from "mongoose";
 
-const connectToDatabase = async (): Promise<void> => {
-  const uri = "mongodb://127.0.0.1:27017/blog-platform";
+const connectToDatabase = async () => {
+  const uri: string = process.env.DB_HOST || "";
 
   try {
     await mongoose.connect(uri);
-    console.log("connected to MongoDB");
   } catch (error) {
     console.error("connection error:", error);
   }

@@ -107,7 +107,7 @@ export const checkCodeController = async (req: CustomRequest<CodeDTO, unknown>, 
     const { code } = req.body;
 
     if (!req.decoded || !req.decoded.code) {
-      throw new Error("Սխալ հարցում"); // wthellll
+      throw new Error("Invalid request");
     }
     const compared = await bcrypt.compare(code, req.decoded.code);
 
@@ -148,7 +148,7 @@ export const resetPasswordController = async (
   const result: ResponseTemplate = getResponseTemplate();
   try {
     if (!req.decoded) {
-      throw new Error("Սխալ հարցում");
+      throw new Error("Invalid request");
     }
     const newPassword = await hashingString(req.body.password);
     await User.findOneAndUpdate({ id: req.decoded.id }, { password: newPassword });

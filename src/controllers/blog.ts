@@ -3,6 +3,7 @@ import { verifyToken } from "../lib/index.js";
 import { Response } from "express";
 import Blog from "../db/schemas/blog.js";
 import User from "../db/schemas/user.js";
+import Comment from "../db/schemas/comment.js";
 import { v4 as uuid } from "uuid";
 import { BlogCreationDTO, BlogDeleteDTO, BlogUpdateDTO } from "../types/blog.js";
 export const createBlogController = async (req: CustomRequest<BlogCreationDTO, unknown>, res: Response) => {
@@ -27,8 +28,11 @@ export const createBlogController = async (req: CustomRequest<BlogCreationDTO, u
           },
         });
       }
+      result.data.message = "Blog added successfully";
+    } else {
+      result.meta.error = { code: 4012, message: "Authorization header missing or invalid" };
+      result.meta.status = 401;
     }
-    result.data.message = "Blog added successfully";
   } catch (err: any) {
     result.meta.error = {
       code: err.code || err.errCode || 500,
@@ -71,14 +75,19 @@ export const deleteBlogController = async (req: CustomRequest<unknown, BlogDelet
       const decoded = verifyToken<{ id: string }>(token as string);
       if (decoded?.id) {
         const currentBlog = await Blog.findOne({ uid: decoded?.id, id: payload.id });
+
         if (currentBlog) {
           await Blog.deleteOne({ id: payload.id });
+          await Comment.deleteMany({ blogId: payload.id });
           result.data.message = `Blog  with id-${payload.id} deleted succesully`;
         } else {
           result.meta.error = { code: 4010, message: "unauthorized" };
           result.meta.status = 401;
         }
       }
+    } else {
+      result.meta.error = { code: 4012, message: "Authorization header missing or invalid" };
+      result.meta.status = 401;
     }
   } catch (err: any) {
     result.meta.error = {
@@ -89,7 +98,6 @@ export const deleteBlogController = async (req: CustomRequest<unknown, BlogDelet
   }
   res.status(result.meta.status).json(result);
 };
-
 export const updateBlogInfoController = async (req: CustomRequest<BlogUpdateDTO, unknown>, res: Response) => {
   const result: ResponseTemplate = getResponseTemplate();
   try {
@@ -118,6 +126,9 @@ export const updateBlogInfoController = async (req: CustomRequest<BlogUpdateDTO,
         }
       }
       result.data.message = `Blog  with id-${payload.id} updated  succesully`;
+    } else {
+      result.meta.error = { code: 4012, message: "Authorization header missing or invalid" };
+      result.meta.status = 401;
     }
   } catch (err: any) {
     result.meta.error = {
