@@ -12,6 +12,5 @@ router.post("", validator("blog"), createBlogController);
 router.get("", getBlogsController);
 router.delete("/:id", deleteBlogController);
 router.put("", updateBlogInfoController);
-router;
 
 export default router;

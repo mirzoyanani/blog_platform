@@ -12,8 +12,8 @@ const router: Router = Router();
 
 router.post("/register", validator("register"), registerController);
 router.post("/login", validator("login"), loginController);
-router.post("/forgetPassword", validator("forget_password"), forgetPasswordController);
-router.post("/submitCode", authorize, validator("check_code"), checkCodeController);
-router.put("/resetPassword", authorize, validator("reset_password"), resetPasswordController);
+router.post("/forgot-password", validator("forget_password"), forgetPasswordController);
+router.post("/verify-code", authorize, validator("check_code"), checkCodeController);
+router.put("/reset-password", authorize, validator("reset_password"), resetPasswordController);
 
 export default router;
