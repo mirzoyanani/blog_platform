@@ -5,19 +5,12 @@ import {
   _USER_NOT_FOUND_,
   _RESET_CODE_IS_WRONG_,
 } from "../helpers/err-codes.js";
-import {
-  getResponseTemplate,
-  ResponseTemplate,
-  hashingString,
-  UserInfoDTO,
-  sendEmail,
-  CustomRequest,
-} from "../lib/index.js";
+import { getResponseTemplate, ResponseTemplate, hashingString, sendEmail, CustomRequest } from "../lib/index.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { Request, Response } from "express";
 import User from "../db/schemas/user.js";
-
+import { UserInfoDTO, LoginDto, CodeDTO, PasswordDTO, ForgetPasswordDTO } from "../types/auth.js";
 export const registerController = async (req: Request<unknown, unknown, UserInfoDTO>, res: Response): Promise<void> => {
   const result: ResponseTemplate = getResponseTemplate();
   try {
@@ -48,11 +41,6 @@ export const registerController = async (req: Request<unknown, unknown, UserInfo
   res.status(result.meta.status).json(result);
 };
 
-interface LoginDto {
-  email: string;
-  password: string;
-}
-
 export const loginController = async (req: Request<unknown, unknown, LoginDto>, res: Response): Promise<void> => {
   const result: ResponseTemplate = getResponseTemplate();
   try {
@@ -80,9 +68,6 @@ export const loginController = async (req: Request<unknown, unknown, LoginDto>, 
   res.status(result.meta.status).json(result);
 };
 
-interface ForgetPasswordDTO {
-  email: string;
-}
 export const forgetPasswordController = async (
   req: Request<unknown, unknown, ForgetPasswordDTO>,
   res: Response,
@@ -116,16 +101,13 @@ export const forgetPasswordController = async (
   res.status(result.meta.status).json(result);
 };
 
-interface CodeDTO {
-  code: string;
-}
 export const checkCodeController = async (req: CustomRequest<CodeDTO, unknown>, res: Response): Promise<void> => {
   const result: ResponseTemplate = getResponseTemplate();
   try {
     const { code } = req.body;
 
     if (!req.decoded || !req.decoded.code) {
-      throw new Error("Սխալ հարցում");
+      throw new Error("Սխալ հարցում"); // wthellll
     }
     const compared = await bcrypt.compare(code, req.decoded.code);
 
@@ -159,9 +141,6 @@ export const checkCodeController = async (req: CustomRequest<CodeDTO, unknown>, 
   res.status(result.meta.status).json(result);
 };
 
-interface PasswordDTO {
-  password: string;
-}
 export const resetPasswordController = async (
   req: CustomRequest<PasswordDTO, unknown>,
   res: Response,

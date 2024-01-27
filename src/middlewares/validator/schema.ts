@@ -28,6 +28,9 @@ const validationSchemas: ValidationSchemas = {
     title: joi.string().required(),
     body: joi.string().required(),
   }),
+  update: joi.object({
+    id: joi.string().required(),
+  }),
 };
 
 export default validationSchemas;

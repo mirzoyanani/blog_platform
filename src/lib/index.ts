@@ -4,19 +4,6 @@ import jwt from "jsonwebtoken";
 import nodemailer, { Transporter } from "nodemailer";
 import { Request } from "express";
 
-export interface UserInfoDTO {
-  uid?: string;
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-}
-export interface BlogCreationDTO {
-  id: string;
-  title: string;
-  body: string;
-}
-
 export interface UserDocument extends Document {
   name?: string;
   age?: number;
